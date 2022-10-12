@@ -5,7 +5,7 @@ services:
     ports:
       - "80:80"
     build:
-      context: .backend
+      context: ./backend
       dockerfile: Dockerfile
     restart: unless-stopped
     command: uvicorn main:app --host dev.himaaa.xyz --port 80
