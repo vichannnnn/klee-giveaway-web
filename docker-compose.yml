@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  backend:
+    ports:
+      - "80:80"
+    network_mode: host
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    command: uvicorn main:app --host dev.himaaa.xyz --port 80
