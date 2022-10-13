@@ -4,9 +4,27 @@ services:
   backend:
     ports:
       - "80:80"
-    network_mode: host
-    build:
+    build: 
       context: ./backend
       dockerfile: Dockerfile
+    network_mode: host
     restart: unless-stopped
     command: uvicorn main:app --host dev.himaaa.xyz --port 80
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  caddy-data:
+  caddy-config:  
