@@ -46,14 +46,6 @@ def init_app():
         asyncio.create_task(bot.start(yaml_data['TOKEN']))
         print(f"{bot.user} has connected to Discord!")
 
-    @app.get("/")
-    async def root():
-        return {"message": "Hello World"}
-
-    @app.get("/hello/{name}")
-    async def say_hello(name: str):
-        return {"message": f"Hello {name}"}
-
     @app.get('/login')
     async def start_login():
         return discord_client.redirect()
