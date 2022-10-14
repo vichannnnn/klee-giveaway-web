@@ -20,11 +20,9 @@ class NotAuthenticatedException(Exception):
 with open("authentication.yaml", "r", encoding="utf8") as stream:
     yaml_data = yaml.safe_load(stream)
 
-redirect_uri = "https://dev.himaaa.xyz/api/callback"
 discord_client = DiscordOAuthClient(yaml_data['CLIENT_ID'], yaml_data['CLIENT_SECRET'],
-                                    redirect_uri, scopes=('identify', 'guilds'))
+                                    yaml_data['REDIRECT_URI'], scopes=('identify', 'guilds'))
 intents = discord.Intents.default()
-intents.message_content = True
 intents.members = True
 bot = commands.Bot(command_prefix='>', intents=intents)
 
@@ -34,6 +32,7 @@ manager = LoginManager('', token_url="/callback", use_cookie=True, custom_except
 
 @bot.command()
 async def ping(ctx):
+    # TODO: Testing function, should be removed in production.
     print("Command successfully executed.")
     await ctx.send('pong')
 
@@ -61,6 +60,7 @@ async def validate_session(request: Request, url: str):
 
 def init_app():
     app = FastAPI(root_path='/api')
+
     @app.exception_handler(NotAuthenticatedException)
     def auth_exception_handler(request: Request, exc: NotAuthenticatedException):
         return RedirectResponse(url=request.scope.get("root_path") + "/login")
@@ -86,6 +86,9 @@ def init_app():
         user_obj = bot.get_user(user.id)
 
         guild = {}
+
+        if not user_obj.mutual_guilds:
+            return {"Error": "The user does not share any mutual guilds with Klee."}
         for gld in user_obj.mutual_guilds:
             guild[gld.id] = gld.name
         resp["guilds"] = guild
@@ -121,8 +124,13 @@ def init_app():
         role = dict((i.id, i.name) for i in bot.get_guild(int(guild_id)).roles)
 
         if int(role_id) in role.keys():
+            role_members = bot.get_guild(int(guild_id)).get_role(int(role_id)).members
+
+            if not len(role_members):
+                return {'Error': 'There are no members in the selected role.'}
+
             return dict(
-                (i.id, {i.name, i.discriminator}) for i in bot.get_guild(int(guild_id)).get_role(int(role_id)).members
+                (i.id, {i.name, i.discriminator}) for i in role_members
                 if not i.bot)
         else:
             return {'Error': 'The role provided is invalid.'}
@@ -133,10 +141,12 @@ def init_app():
         user = await session.identify()
         user_obj = bot.get_user(user.id)
 
+        # Redirects back to homepage and sets the cookie with authentication header for the user.
         response = RedirectResponse(url="/", status_code=302)
         manager.cookie_name = "Authentication"
         manager.set_cookie(response, session.token['access_token'])
 
+        # Includes the list of mutual guilds belonging to the user for frontend, just in case.
         guild = {}
         for gld in user_obj.mutual_guilds:
             guild[gld.id] = gld.name
