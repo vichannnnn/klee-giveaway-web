@@ -9,7 +9,7 @@ import yaml
 from fastapi_login import LoginManager
 import aiohttp
 from aiohttp.client_exceptions import ClientResponseError
-from datetime import timedelta
+from datetime import timedelta, datetime
 from typing import Dict
 
 
@@ -25,9 +25,6 @@ discord_client = DiscordOAuthClient(yaml_data['CLIENT_ID'], yaml_data['CLIENT_SE
 intents = discord.Intents.default()
 intents.members = True
 bot = commands.Bot(command_prefix='>', intents=intents)
-
-manager = LoginManager('', token_url="/callback", use_cookie=True, custom_exception=NotAuthenticatedException,
-                       default_expiry=timedelta(minutes=30))
 
 
 @bot.command()
@@ -143,8 +140,9 @@ def init_app():
 
         # Redirects back to homepage and sets the cookie with authentication header for the user.
         response = RedirectResponse(url="/", status_code=302)
-        manager.cookie_name = "Authentication"
-        manager.set_cookie(response, session.token['access_token'])
+        response.set_cookie(key="Authentication", value=f"Bearer {session.token['access_token']}",
+                            expires=int(datetime.timestamp(datetime.now() + timedelta(minutes=15))),
+                            httponly=True, secure=True)
 
         # Includes the list of mutual guilds belonging to the user for frontend, just in case.
         guild = {}
