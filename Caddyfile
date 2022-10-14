@@ -1,4 +1,4 @@
-dev.himaaa.xyz {
+giveaway.klee.quest {
     encode gzip
 
     handle_path /api/* {
