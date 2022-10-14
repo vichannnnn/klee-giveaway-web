@@ -1,10 +1,26 @@
 <script lang="ts">
+  async function getUser() {
+    const res = await fetch("https://dev.himaaa.xyz/user", {mode: "no-cors"});
+    const json = await res.json();
+
+    return json as User;
+  }
+
+  let userPromise = getUser();
 
 </script>
 
 <main>
-  <div>You are not logged in.</div>
-  <a href="http://dev.himaaa.xyz/api/login">Log in!</a>
+  {#await userPromise}
+    Loading...
+  {:then user}
+    {#if user}
+      Welcome {user}!
+    {:else}
+      <div>You are not logged in.</div>
+      <a href="https://dev.himaaa.xyz/api/login">Log in!</a>
+    {/if}
+  {/await}
 </main>
 
 <style>
