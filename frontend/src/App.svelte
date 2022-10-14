@@ -1,6 +1,6 @@
 <script lang="ts">
   async function getUser() {
-    const res = await fetch("https://dev.himaaa.xyz/user", {mode: "no-cors"});
+    const res = await fetch("https://dev.himaaa.xyz/api/user");
     const json = await res.json();
 
     return json as User;
