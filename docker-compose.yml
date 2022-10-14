@@ -4,8 +4,6 @@ services:
   backend:
     ports:
       - "81:81"
-    networks:
-      - internal
     build: 
       context: ./backend
       dockerfile: Dockerfile
@@ -18,8 +16,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:80"
-    networks:
-      - internal
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy-data:/data
@@ -30,7 +26,4 @@ services:
 
 volumes:
   caddy-data:
-  caddy-config:  
-
-networks:
-  internal:
+  caddy-config:
