@@ -20,7 +20,7 @@ class NotAuthenticatedException(Exception):
 with open("authentication.yaml", "r", encoding="utf8") as stream:
     yaml_data = yaml.safe_load(stream)
 
-redirect_uri = "https://dev.himaaa.xyz/callback"
+redirect_uri = "https://dev.himaaa.xyz/api/callback"
 discord_client = DiscordOAuthClient(yaml_data['CLIENT_ID'], yaml_data['CLIENT_SECRET'],
                                     redirect_uri, scopes=('identify', 'guilds'))
 intents = discord.Intents.default()
@@ -60,7 +60,7 @@ async def validate_session(request: Request, url: str):
 
 
 def init_app():
-    app = FastAPI()
+    app = FastAPI(root_path='/api')
 
     @app.exception_handler(NotAuthenticatedException)
     def auth_exception_handler(request: Request, exc: NotAuthenticatedException):
