@@ -140,8 +140,8 @@ def init_app():
 
         # Redirects back to homepage and sets the cookie with authentication header for the user.
         response = RedirectResponse(url="/", status_code=302)
-        response.set_cookie(key="Authentication", value=f"Bearer {session.token['access_token']}",
-                            expires=int(datetime.timestamp(datetime.now() + timedelta(minutes=15))),
+        response.set_cookie(key="Authentication", value=session.token['access_token'],
+                            expires=3600,
                             httponly=True, secure=True)
 
         # Includes the list of mutual guilds belonging to the user for frontend, just in case.
