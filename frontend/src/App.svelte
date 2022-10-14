@@ -1,6 +1,7 @@
 <script lang="ts">
-  async function getUser() {
+  async function getUser(): Promise<User | null> {
     const res = await fetch("https://dev.himaaa.xyz/api/user");
+    if (res.status !== 200) return null;
     const json = await res.json();
 
     return json as User;
@@ -14,7 +15,7 @@
   {#await userPromise}
     Loading...
   {:then user}
-    {#if user}
+    {#if user !== null}
       Welcome {user}!
     {:else}
       <div>You are not logged in.</div>
