@@ -17,7 +17,7 @@ class NotAuthenticatedException(Exception):
 with open("authentication.yaml", "r", encoding="utf8") as stream:
     yaml_data = yaml.safe_load(stream)
 
-redirect_uri = "http://dev.himaaa.xyz/callback"
+redirect_uri = "https://dev.himaaa.xyz/api/callback"
 discord_client = DiscordOAuthClient(yaml_data['CLIENT_ID'], yaml_data['CLIENT_SECRET'],
                                     redirect_uri, scopes=('identify', 'guilds'))
 intents = discord.Intents.default()
