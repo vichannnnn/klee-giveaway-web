@@ -3,13 +3,14 @@ version: '3.8'
 services:
   backend:
     ports:
-      - "80:80"
+      - "81:81"
+    networks:
+      - internal
     build: 
       context: ./backend
       dockerfile: Dockerfile
-    network_mode: host
     restart: unless-stopped
-    command: uvicorn main:app --host dev.himaaa.xyz --port 80
+    command: uvicorn main:app --host dev.himaaa.xyz --port 81
 
   frontend:
     build:
@@ -17,6 +18,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:80"
+    networks:
+      - internal
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy-data:/data
@@ -28,3 +31,6 @@ services:
 volumes:
   caddy-data:
   caddy-config:  
+
+networks:
+  internal:

@@ -1,7 +1,6 @@
-:80
-
-handle {
+dev.himaaa.xyz {
         root * /usr/share/caddy/
+        reverse_proxy /api/* backend:81
         try_files {path} {file} /index.html
         file_server
 }
