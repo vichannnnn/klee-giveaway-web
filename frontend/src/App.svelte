@@ -16,7 +16,7 @@
     Loading...
   {:then user}
     {#if user !== null}
-      Welcome {user.name}#{user.discriminator}!
+      Welcome {user.username}#{user.discriminator}!
     {:else}
       <div>You are not logged in.</div>
       <a href="https://dev.himaaa.xyz/api/login">Log in!</a>
