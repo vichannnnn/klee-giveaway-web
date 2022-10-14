@@ -1,13 +1,26 @@
 <script lang="ts">
-  async function getUser(): Promise<User | null> {
-    const res = await fetch("https://dev.himaaa.xyz/api/user");
-    if (res.status !== 200) return null;
-    const json = await res.json();
+  let selectedGuild = "";
+  let userPromise = getUser();
+  let rolePromise = getRoles(selectedGuild);
 
-    return json as User;
+  async function getUser(): Promise<User | null> {
+    try {
+      const res = await fetch("/api/user");
+      return await res.json() as User;
+    } catch {
+      return null;
+    }
   }
 
-  let userPromise = getUser();
+  async function getRoles(guild_id: string) {
+    try {
+      const res = await fetch(`/api/guilds/${guild_id}`);
+      if (res.status !== 200) return null;
+      return await res.json();
+    } catch {
+      return null;
+    }
+  }
 
 </script>
 
@@ -16,7 +29,7 @@
     Loading...
   {:then user}
 
-    {#if user !== null}
+    {#if user}
       Welcome {user.username}#{user.discriminator}!
       {#if user.guilds.length === 0}
         You have no common guilds! Add the bot to your server.
@@ -28,9 +41,11 @@
 
     {:else}
       <div>You are not logged in.</div>
-      <a href="https://dev.himaaa.xyz/api/login">Log in!</a>
+      <a href="/api/login">Log in!</a>
     {/if}
 
+    {:catch error}
+      <p>Oops, we encountered an error!</p>
   {/await}
 </main>
 
