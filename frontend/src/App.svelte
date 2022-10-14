@@ -21,7 +21,7 @@
       {#if user.guilds.length === 0}
         You have no common guilds! Add the bot to your server.
       {:else}
-        {#each Array(user.guilds.entries()) as {id, name}}
+        {#each Object.entries(user.guilds) as [id, name]}
           <li>{id}: {name}</li>
         {/each}
       {/if}
