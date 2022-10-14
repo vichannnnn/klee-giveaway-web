@@ -11,7 +11,7 @@ jobs:
       - name: Push to server
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: cd ${{ secrets.PROJECT_PATH }} && git pull && docker compose stop && docker container prune -f &&  docker image prune -fa &&  docker compose up -d --build
+          host: ${{ secrets.MASTER_HOST }}
+          username: ${{ secrets.MASTER_USER }}
+          key: ${{ secrets.MASTER_SSH_PRIVATE_KEY }}
+          script: cd ${{ secrets.MASTER_PROJECT_PATH }} && git pull && docker compose stop && docker container prune -f &&  docker image prune -fa &&  docker compose up -d --build
