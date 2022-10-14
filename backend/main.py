@@ -63,11 +63,11 @@ def init_app():
     app = FastAPI(root_path='/api')
     @app.exception_handler(NotAuthenticatedException)
     def auth_exception_handler(request: Request, exc: NotAuthenticatedException):
-        return RedirectResponse(url=app.url_path_for('/login'))
+        return RedirectResponse(url=app.url_path_for('login'))
 
     @app.exception_handler(ClientResponseError)
-    def auth_exception_handler(request: Request, exc: ClientResponseError):
-        return RedirectResponse(url=app.url_path_for('/login'))
+    def client_response_exception_handler(request: Request, exc: ClientResponseError):
+        return RedirectResponse(url=app.url_path_for('login'))
 
     @app.on_event("startup")
     async def startup_event():
@@ -107,7 +107,7 @@ def init_app():
         return role
 
     @app.get('/guilds/{guild_id}/{role_id}')
-    async def guild_roles(request: Request, guild_id: str, role_id: str):
+    async def get_role_members(request: Request, guild_id: str, role_id: str):
 
         resp = await validate_session(request, 'https://discord.com/api/users/@me')
         session = discord_client.session_from_token({"access_token": request.cookies['Authentication']})
