@@ -3,12 +3,12 @@ version: '3.8'
 services:
   backend:
     expose:
-      - 81
+      - 8000
     build: 
       context: ./backend
       dockerfile: Dockerfile
     restart: unless-stopped
-    command: uvicorn main:app --host 0.0.0.0 --port 81
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
 
   frontend:
     build:
