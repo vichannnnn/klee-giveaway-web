@@ -2,13 +2,13 @@ version: '3.8'
 
 services:
   backend:
-    ports:
-      - "81:81"
+    expose:
+      - 81
     build: 
       context: ./backend
       dockerfile: Dockerfile
     restart: unless-stopped
-    command: uvicorn main:app --host dev.himaaa.xyz --port 81
+    command: uvicorn main:app --host 0.0.0.0 --port 81
 
   frontend:
     build:
@@ -16,6 +16,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy-data:/data
