@@ -63,11 +63,11 @@ def init_app():
     app = FastAPI(root_path='/api')
     @app.exception_handler(NotAuthenticatedException)
     def auth_exception_handler(request: Request, exc: NotAuthenticatedException):
-        return RedirectResponse(url=app.url_path_for('login'))
+        return RedirectResponse(url=request.scope.get("root_path") + "/login")
 
     @app.exception_handler(ClientResponseError)
     def client_response_exception_handler(request: Request, exc: ClientResponseError):
-        return RedirectResponse(url=app.url_path_for('login'))
+        return RedirectResponse(url=request.scope.get("root_path") + "/login")
 
     @app.on_event("startup")
     async def startup_event():
