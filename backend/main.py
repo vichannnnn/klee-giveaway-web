@@ -61,14 +61,13 @@ async def validate_session(request: Request, url: str):
 
 def init_app():
     app = FastAPI(root_path='/api')
-
     @app.exception_handler(NotAuthenticatedException)
     def auth_exception_handler(request: Request, exc: NotAuthenticatedException):
-        return RedirectResponse(url='/login')
+        return RedirectResponse(url=app.url_path_for('/login'))
 
     @app.exception_handler(ClientResponseError)
     def auth_exception_handler(request: Request, exc: ClientResponseError):
-        return RedirectResponse(url='/login')
+        return RedirectResponse(url=app.url_path_for('/login'))
 
     @app.on_event("startup")
     async def startup_event():
@@ -81,7 +80,6 @@ def init_app():
 
     @app.get('/user')
     async def user(request: Request):
-        print(request.cookies)
         resp = await validate_session(request, 'https://discord.com/api/users/@me')
         session = discord_client.session_from_token({"access_token": request.cookies['Authentication']})
         user = await session.identify()
@@ -126,6 +124,8 @@ def init_app():
             return dict(
                 (i.id, {i.name, i.discriminator}) for i in bot.get_guild(int(guild_id)).get_role(int(role_id)).members
                 if not i.bot)
+        else:
+            return {'Error': 'The role provided is invalid.'}
 
     @app.get('/callback')
     async def finish_login(request: Request, code: str):
