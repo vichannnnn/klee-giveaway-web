@@ -1,16 +1,15 @@
+import asyncio
+from typing import Dict
+
+import aiohttp
+import discord
+import yaml
+from aiohttp.client_exceptions import ClientResponseError
+from discord import User
+from discord.ext import commands
 from fastapi import FastAPI, Request
 from fastapi.responses import RedirectResponse
 from starlette_discord import DiscordOAuthClient
-import discord
-from discord import User
-from discord.ext import commands
-import asyncio
-import yaml
-from fastapi_login import LoginManager
-import aiohttp
-from aiohttp.client_exceptions import ClientResponseError
-from datetime import timedelta, datetime
-from typing import Dict
 
 
 class NotAuthenticatedException(Exception):

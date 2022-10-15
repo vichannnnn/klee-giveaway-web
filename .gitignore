@@ -1,3 +1,4 @@
 ./backend/authentication.yaml
 ./backend/venv
 .github
+./backend/test_main.py

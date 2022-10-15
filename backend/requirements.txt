@@ -12,3 +12,5 @@ pyYAML
 fastapi-login
 requests
 aiohttp
+pytest
+httpx
