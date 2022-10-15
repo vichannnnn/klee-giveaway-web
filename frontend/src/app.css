@@ -3816,6 +3816,12 @@ body.is-preload #banner:after {
 
 /* Main */
 
+.banner-container {
+    background-image: url("./assets/css/images/banner.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+}
+
 #main > header {
     padding: 12em 0 10em 0 ;
     background-image: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("./assets/css/images/banner.jpg");
