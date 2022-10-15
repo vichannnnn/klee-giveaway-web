@@ -1,6 +1,5 @@
 import asyncio
 from typing import Dict
-
 import aiohttp
 import discord
 import yaml

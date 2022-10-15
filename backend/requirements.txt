@@ -13,4 +13,5 @@ fastapi-login
 requests
 aiohttp
 pytest
-
+trio
+httpx
