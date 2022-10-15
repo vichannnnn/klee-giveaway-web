@@ -111,9 +111,8 @@
               by Genshin Impact<br />
             <ul class="actions special">
               <li><a href="https://discord.com/api/oauth2/authorize?client_id=769699482899709983&permissions=139586800704&scope=bot%20applications.commands" class="button primary" id="banner-button">Invite Me</a></li>
-            <li><a href="/api/login">Log in!</a></li>
+              <li><a href="/api/login" class="button primary" id="login-button">Log in!</a></li>
             </ul>
-
           </div>
           <a href="#one" class="more scrolly">Learn More</a>
         </section>
