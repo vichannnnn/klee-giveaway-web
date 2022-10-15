@@ -101,6 +101,7 @@
     {:else}
       <html>
       <body class="landing is-preload">
+      <img src="./assets/css/images/banner.jpg" alt="background image" />
       <!-- Page Wrapper -->
       <div id="page-wrapper">
         <!-- Banner -->
