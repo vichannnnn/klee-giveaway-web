@@ -102,12 +102,6 @@
       <html>
       <head>
         <title>Klee - Discord Bot</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-        <link rel="stylesheet" href="assets/css/main.css" />
-        <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-
-        <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
       </head>
       <body class="landing is-preload">
 
