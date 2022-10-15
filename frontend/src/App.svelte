@@ -100,14 +100,9 @@
 
     {:else}
       <html>
-      <head>
-        <title>Klee - Discord Bot</title>
-      </head>
       <body class="landing is-preload">
-
       <!-- Page Wrapper -->
       <div id="page-wrapper">
-
         <!-- Banner -->
         <section id="banner">
           <div class="inner">
