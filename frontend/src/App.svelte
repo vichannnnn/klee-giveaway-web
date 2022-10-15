@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="ts" xmlns="http://www.w3.org/1999/html">
   // import {memberMock, nulLMemberMock, nullRoleMock, roleMock, userMock} from "./mocks";
 
   let selectedGuild = "";
@@ -99,8 +99,58 @@
       {/if}
 
     {:else}
-      <div>You are not logged in.</div>
-      <a href="/api/login">Log in!</a>
+      <html>
+      <head>
+        <title>Klee - Discord Bot</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="stylesheet" href="assets/css/main.css" />
+        <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+
+        <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+      </head>
+      <body class="landing is-preload">
+
+      <!-- Page Wrapper -->
+      <div id="page-wrapper">
+
+        <!-- Banner -->
+        <section id="banner">
+          <div class="inner">
+            <h2>Klee#3929</h2>
+            <p>A discord bot inspired<br />
+              by Genshin Impact<br />
+            <ul class="actions special">
+              <li><a href="https://discord.com/api/oauth2/authorize?client_id=769699482899709983&permissions=139586800704&scope=bot%20applications.commands" class="button primary" id="banner-button">Invite Me</a></li>
+            <li><a href="/api/login">Log in!</a></li>
+            </ul>
+
+          </div>
+          <a href="#one" class="more scrolly">Learn More</a>
+        </section>
+
+        <!-- Footer -->
+        <footer id="footer">
+          <ul class="icons">
+            <li><a href="https://discord.gg/GFQ6DrMFQs" class="icon brands fa-discord"><span class="label">Discord</span></a></li>
+            <li><a href="https://www.patreon.com/kleechann" class="icon brands fa-patreon"><span class="label">Patreon</span></a></li>
+          </ul>
+          <ul class="copyright">
+            <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+          </ul>
+        </footer>
+      </div>
+
+      <!-- Scripts -->
+      <script src="assets/js/jquery.min.js"></script>
+      <script src="assets/js/jquery.scrollex.min.js"></script>
+      <script src="assets/js/jquery.scrolly.min.js"></script>
+      <script src="assets/js/browser.min.js"></script>
+      <script src="assets/js/breakpoints.min.js"></script>
+      <script src="assets/js/util.js"></script>
+      <script src="assets/js/main.js"></script>
+      </body>
+      </html>
     {/if}
 
     {:catch error}
