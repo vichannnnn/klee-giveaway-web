@@ -37,7 +37,7 @@
   async function getMembers(guild_id: string, role_id: string): Promise<MemberList | null> {
     try {
 
-      const res = await fetch(`/api/guilds/${$guild_id}/${role_id}`);
+      const res = await fetch(`/api/guilds/${guild_id}/${role_id}`);
       if (res.status !== 200) return null;
       return await res.json();
 
